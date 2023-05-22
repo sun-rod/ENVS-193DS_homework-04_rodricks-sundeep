@@ -1,0 +1,36 @@
+---
+title: "193DS HW #4"
+author: "Sundeep Rodricks"
+format: docx
+editor: visual
+---
+
+```{r loading-packages, eval=FALSE}
+library(tidyverse)
+library(here)
+library(naniar)
+library(skimr)
+```
+
+## Problem #1
+
+1.  H0: Fish length does not predict fish weight
+
+    H0:
+
+    HA: Fish length does predict fish weight
+
+    HA:
+
+2.  
+
+    ```{r filtering-data}
+    # we're only interested in the weight and length columns
+    fish_filtered <- ntl6_v12 %>% 
+      group_by(weight, length)
+
+    ```
+
+    ```{r missing-data-visualization}
+    gg_miss_var()
+    ```
