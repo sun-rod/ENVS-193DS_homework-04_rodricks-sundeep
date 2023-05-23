@@ -10,6 +10,8 @@ library(tidyverse)
 library(here)
 library(naniar)
 library(skimr)
+library(readr)
+
 ```
 
 ## Problem #1
@@ -24,13 +26,18 @@ library(skimr)
 
 2.  
 
-    ```{r filtering-data}
-    # we're only interested in the weight and length columns
-    fish_filtered <- ntl6_v12 %>% 
-      group_by(weight, length)
+    ```{r importing-data}
+    ntl6_v12 <- read_csv("ntl6_v12.csv")
+    View(ntl6_v12)
+    ```
 
+    ```{r filtering-data}
+    # extracting just the weight and length columns from the data frame
+    fish_filtered <- ntl6_v12[, c('weight', 'length')]
+
+    fish_filtered
     ```
 
     ```{r missing-data-visualization}
-    gg_miss_var()
+    gg_miss_var(fish_filtered)
     ```
