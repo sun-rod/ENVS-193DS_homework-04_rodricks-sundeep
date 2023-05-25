@@ -16,28 +16,55 @@ library(readr)
 
 ## Problem #1
 
-1.  H0: Fish length does not predict fish weight
+1.  H0: Fish length does not predict fish weight for trout perch
 
     H0:
 
-    HA: Fish length does predict fish weight
+    HA: Fish length does predict fish weight for trout perch
 
     HA:
 
 2.  
 
     ```{r importing-data}
-    ntl6_v12 <- read_csv("ntl6_v12.csv")
-    View(ntl6_v12)
+    Fish_data <- read_csv(here("data","ntl6_v12.csv"))
+    View(Fish_data)
     ```
 
     ```{r filtering-data}
-    # extracting just the weight and length columns from the data frame
-    fish_filtered <- ntl6_v12[, c('weight', 'length')]
+    # filtering for trout perch
+    fish_filtered <- ntl6_v12 %>% 
+      filter(spname == "TROUTPERCH")
 
     fish_filtered
     ```
 
     ```{r missing-data-visualization}
-    gg_miss_var(fish_filtered)
+    gg_miss_var(fish_filtered) +
+      labs(caption = "Figure 1: There are 199 missing weight observations for the trout perch data and no missing length observations")
+
+    miss_var_cumsum(fish_filtered)
     ```
+
+    ```{r making-a-model}
+    modelobject <- lm(weight ~ length, data = fish_filtered)
+
+    par(mfrow = c(2,2))
+    plot(modelobject)
+    ```
+
+3.  
+
+```{r run-test}
+# paired t-test
+
+```
+
+```{r}
+ggplot(data = fish_filtered, aes(x = length, y = weight)) + 
+  geom_point()
+```
+
+```{r}
+pct_miss_case(fish_filtered)
+```
